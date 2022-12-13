@@ -99,7 +99,13 @@ namespace FemDesign.Examples
             using (var femDesign = new FemDesignConnection(outputDir: "My simple beam", keepOpen: true))
             {
                 // Inside the "using..." we can send commands to FEM-Design.
+                Console.WriteLine("Before open");
                 femDesign.Open(model);
+                Console.WriteLine("After open");
+
+                Console.WriteLine($"Stat 1: {femDesign.IsRunning()}");
+                Console.WriteLine($"Stat 2: {femDesign.IsRunning()}");
+                Console.WriteLine($"Stat 3: {femDesign.IsRunning()}");
             }
         }
     }

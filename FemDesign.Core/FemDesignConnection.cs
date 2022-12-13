@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using FemDesign;
@@ -25,6 +26,32 @@ namespace FemDesign
         public bool HasExited { get; private set; }
         public bool IsConnected => _connection._inputPipe.IsConnected;
         public bool IsDisconnected => !IsConnected;
+        public bool IsRunningCommand { get; private set; } = false;
+
+        private System.Text.RegularExpressions.Regex _statResponsePattern = new System.Text.RegularExpressions.Regex(@"in:(?'in'\d+) out:(?'out'\d+) v:(?'verbosity'\d+) s:(?'status'script idle|script running)");
+        public bool IsRunning()
+        {
+            bool isRunning = true;
+            var eventWaiter = new ManualResetEvent(false);
+            void onOutput(string message)
+            {
+                var match = _statResponsePattern.Match(message);
+                if (match.Success)
+                {
+                    isRunning = match.Groups["status"].Value == "script idle";
+
+                    // TODO: Only release the waiter if the output is the expected stat
+                    eventWaiter.Set();
+                    _connection.OnOutput -= onOutput;
+                }
+            }
+
+            _connection.OnOutput += onOutput;
+            _connection.Send("stat");
+
+            eventWaiter.WaitOne();
+            return isRunning;
+        }
 
         /// <summary>
         /// Keep FEM-Design open after <see cref="Dispose"/> is called.
@@ -123,7 +150,7 @@ namespace FemDesign
 
             script.Serialize(scriptPath);
             this._connection.Send("run " + scriptPath);
-            this._connection.WaitForCommandToFinish();
+            //this._connection.WaitForCommandToFinish();
         }
 
         /// <summary>

@@ -31,23 +31,6 @@ namespace FemDesign
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application();
         /// <summary>
-        /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
-        /// </summary>
-        [XmlAttribute("struxml_version")]
-        public string StruxmlVersion { get; set; }
-        /// <summary>
-        /// Name of the StruSoft or 3rd party product what generated this XML file.
-        /// </summary>
-        [XmlAttribute("source_software")]
-        public string SourceSoftware { get; set; } // string
-        /// <summary>
-        /// The data is partial data, so the oldest entity latest modification date and time is the
-        /// value in UTC. If the current XML contains the whole database, the start_time value is
-        /// "1970-01-01T00:00:00Z". The date and time always in UTC!
-        /// </summary>
-        [XmlAttribute("start_time")]
-        public string StartTime { get; set; } // dateTime
-        /// <summary>
         /// The data is partial data, so the newest entity latest modification date and time is this
         /// value in UTC. This date and time always in UTC!
         /// </summary>
@@ -63,8 +46,6 @@ namespace FemDesign
         /// <summary>National annex of calculation code</summary>
         [XmlAttribute("country")]
         public Country Country { get; set; } // eurocodetype
-        [XmlAttribute("xmlns")]
-        public string Xmlns { get; set; }
 
         [XmlElement("construction_stages", Order = 1)]
         public ConstructionStages ConstructionStages { get; set; }
@@ -181,14 +162,14 @@ namespace FemDesign
 
         private void Initialize(Country country)
         {
-            this.StruxmlVersion = "01.00.000";
-            this.SourceSoftware = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
-            this.StartTime = "1970-01-01T00:00:00.000";
+            this.store.Struxml_version = "01.00.000";
+            this.store.Source_software = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+            this.store.Start_time = new System.DateTime(1970,01,01,00,00,00,00);
             this.EndTime = System.DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             this.Guid = System.Guid.NewGuid();
             this.ConvertId = "00000000-0000-0000-0000-000000000000";
-            this.Standard = "EC";
-            this.Country = country;
+            this.store.Standard = StruSoft.Interop.StruXml.Data.Standardtype.EC;
+            this.Country = Country;
             this.End = "";
 
             // Check if model contains entities, sections and materials, else these needs to be initialized.
@@ -258,7 +239,7 @@ namespace FemDesign
             }
 
             // cast type
-            StruSoft.Interop.StruXml.Data.Database _model = (StruSoft.Interop.StruXml.Data.Database)obj;
+            var _model = (StruSoft.Interop.StruXml.Data.Database)obj;
 
             var model = new Model(_model);
 

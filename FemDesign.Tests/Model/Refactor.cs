@@ -12,14 +12,13 @@ namespace FemDesign.Tests.Model
         [TestMethod]
         public void TestMethod1()
         {
-            string inputFile = "Model/refactor_test.struxml";
+            string inputFile = "Model/refactor_test2.struxml";
             var model = FemDesign.Model.DeserializeFromFilePath(inputFile);
 
-            var a = 2;
-            var b = 3;
             using(var connection = new FemDesignConnection(keepOpen: true))
             {
                 connection.Open(model);
+                connection.Save(System.IO.Path.GetFullPath("Model/refactor_test2_after.struxml"));
             }
         }
     }

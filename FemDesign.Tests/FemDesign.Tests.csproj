@@ -84,7 +84,9 @@
     <Compile Include="Entities\StiffnessPointsTests.cs" />
     <Compile Include="Geometry\PlaneTests.cs" />
     <Compile Include="Geometry\Points.cs" />
-    <Compile Include="Model\Refactor.cs" />
+    <Compile Include="Model\Refactor.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Reinforcement\InteractionSurfceTests.cs" />
     <Compile Include="Results\InteractionSurface\InteractionSurfaceTests.cs" />
     <Compile Include="Soil\SoilElementsTests.cs" />
@@ -173,6 +175,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Model\refactor_test.struxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\refactor_test2.struxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

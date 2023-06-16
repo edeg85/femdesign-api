@@ -5,33 +5,24 @@ namespace FemDesign.Geometry
 {
     public class Plane
     {
-        [XmlElement("local_pos", Order = 1)]
-        public Point3d Origin { get; set; }
+        private StruSoft.Interop.StruXml.Data.Opt_localsys_type store = new StruSoft.Interop.StruXml.Data.Opt_localsys_type();
 
-        /// <value>
-        /// Do not set. Should be private.
-        /// </value>
-        [XmlElement("local_x", Order = 2)]
-        public Vector3d _localX;
-        public Vector3d LocalX
+        public Point3d Origin
         {
-            get
-            {
-                return _localX;
-            }
+            get { return store.Local_pos; }
+            set { store.Local_pos = value; }
         }
 
-        /// <value>
-        /// Do not set. Should be private.
-        /// </value>
-        [XmlElement("local_y", Order = 3)]
-        public Vector3d _localY;
+        public Vector3d LocalX
+        {
+            get { return this.store.Local_x; }
+            set { store.Local_x = value; }
+        }
+
         public Vector3d LocalY
         {
-            get
-            {
-                return _localY;
-            }
+            get { return this.store.Local_y; }
+            set { store.Local_y = value; }
         }
 
         /// <value>
@@ -89,8 +80,8 @@ namespace FemDesign.Geometry
             Origin = origin;
             if (xDir.IsPerpendicular(yDir))
             {
-                _localX = xDir.Normalize();
-                _localY = yDir.Normalize();
+                LocalX = xDir.Normalize();
+                LocalY = yDir.Normalize();
             }
             else
             {

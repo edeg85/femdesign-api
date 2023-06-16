@@ -10,6 +10,17 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class SurfaceSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
+
+        private StruSoft.Interop.StruXml.Data.Surface_support_type store;
+        public StruSoft.Interop.StruXml.Data.Surface_support_type Store
+        {
+            get { return this.store; }
+        }
+        public SurfaceSupport(StruSoft.Interop.StruXml.Data.Surface_support_type obj)
+        {
+            this.store = obj;
+        }
+
         protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and SurfaceSupport share the same instance counter.
 
         [XmlAttribute("stage")]

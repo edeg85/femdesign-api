@@ -11,6 +11,16 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class Group
     {
+        private StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeGroup store;
+        public StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeGroup Store
+        {
+            get { return store; }
+        }
+        public Group(StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeGroup obj)
+        {
+            this.store = obj;
+        }
+
         [XmlIgnore]
         [Obsolete("Use _plane", true)]
         private Geometry.CoordinateSystem _coordinateSystem;

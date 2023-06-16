@@ -14,6 +14,16 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class LineSupport: NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
+        private StruSoft.Interop.StruXml.Data.Line_support_type store;
+        public StruSoft.Interop.StruXml.Data.Line_support_type Store
+        {
+            get { return this.store; }
+        }
+        public LineSupport(StruSoft.Interop.StruXml.Data.Line_support_type obj)
+        {
+            this.store = obj;
+        }
+
         protected override int GetUniqueInstanceCount() => ++PointSupport._instance; // PointSupport and LineSupport share the same instance counter.
 
         [XmlAttribute("moving_local")]
@@ -80,6 +90,8 @@ namespace FemDesign.Supports
         {
             
         }
+
+
 
         /// <summary>
         /// Create a 1-dimensionally directed line support. Recomended to use 3-dimensional supports. These are constructor with <see cref="Releases.Motions"/> and <see cref="Releases.Rotations"/> parameters.

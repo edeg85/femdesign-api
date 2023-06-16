@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using FemDesign.Geometry;
 using FemDesign.Releases;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign.Supports
 {
@@ -13,21 +14,56 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class PointSupport : NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
+        private StruSoft.Interop.StruXml.Data.Point_support_type store;
+        public StruSoft.Interop.StruXml.Data.Point_support_type Store
+        {
+            get { return store; }
+        }
+        public PointSupport(StruSoft.Interop.StruXml.Data.Point_support_type store)
+        {
+            this.store = store;
+        }
+
         [XmlIgnore]
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
         protected override int GetUniqueInstanceCount() => ++_instance;
 
-        [XmlAttribute("stage")]
-        public int StageId { get; set; } = 1;
+        public int StageId
+        {
+            get { return this.store.Stage; }
+            set { this.store.Stage = value; }
+        }
 
-        [XmlIgnore]
-        private Group group;
-        [XmlElement("group", Order = 1)]
-        public Group Group {
-            get => group;
-            set {
-                group = value;
-                if (value != null) directed = null;
+        public Group Group
+        {
+            get
+            {
+                var item = this.store.Item as Support_rigidity_data_typeGroup;
+                return new Group(item);
+            }
+            set
+            {
+                var group = new StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeGroup();
+                group.Local_x = value.LocalX;
+                group.Local_y = value.LocalY;
+                this.store.Item = group;
+                if (value != null) Directed = null;
+            }
+        }
+
+        public Directed Directed
+        {
+            get
+            {
+                var item = this.store.Item as Support_rigidity_data_typeDirected;
+                return new Directed(item);
+            }
+            set
+            {
+                var group = new StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected();
+                group.Direction = value.Direction;
+                this.store.Item = group;
+                if (value != null) Group = null;
             }
         }
 
@@ -47,20 +83,11 @@ namespace FemDesign.Supports
             get => Group != null;
         }
 
-
-        [XmlIgnore]
-        private Directed directed;
-        [XmlElement("directed", Order = 2)]
-        public Directed Directed {
-            get => directed;
-            set {
-                directed = value;
-                if (value != null) group = null;
-            }
+        public Point3d Position
+        {
+            get { return this.store.Position; }
+            set { this.store.Position = value; }
         }
-
-        [XmlElement("position", Order = 3)]
-        public Point3d Position { get; set; } // point_type_3d
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
         public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }

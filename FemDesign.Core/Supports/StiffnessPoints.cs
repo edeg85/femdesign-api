@@ -13,7 +13,17 @@ namespace FemDesign.Supports
 {
 	public partial class StiffnessPoint : EntityBase, IStructureElement, ISupportElement
 	{
-		[XmlIgnore]
+        private StruSoft.Interop.StruXml.Data.Stiffness_point_type store;
+        public StruSoft.Interop.StruXml.Data.Stiffness_point_type Store
+        {
+            get { return this.store; }
+        }
+        public StiffnessPoint(StruSoft.Interop.StruXml.Data.Stiffness_point_type obj)
+        {
+            this.store = obj;
+        }
+
+        [XmlIgnore]
 		public FemDesign.Geometry.Point3d Point { get; set; }
 
 		[XmlAttribute("x")]

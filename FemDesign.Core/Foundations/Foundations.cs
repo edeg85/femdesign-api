@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FemDesign.Supports;
+using StruSoft.Interop.StruXml.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +11,42 @@ namespace FemDesign.Foundations
 {
     public partial class Foundations
     {
-        [XmlElement("isolated_foundation")]
-        public List<IsolatedFoundation> IsolatedFoundations = new List<IsolatedFoundation>();
+        private List<StruSoft.Interop.StruXml.Data.Foundation_type> store;
+        public List<StruSoft.Interop.StruXml.Data.Foundation_type> Store
+        {
+            get { return this.store; }
+        }
 
-        [XmlElement("wall_foundation")]
-        public List<StruSoft.Interop.StruXml.Data.Lnfoundation_type> wall_foundationField = new List<StruSoft.Interop.StruXml.Data.Lnfoundation_type>();
+        public Foundations(List<StruSoft.Interop.StruXml.Data.Foundation_type> obj)
+        {
+            this.store = obj;
+        }
 
-        [XmlElement("foundation_slab")]
-        public List<StruSoft.Interop.StruXml.Data.Sffoundation_type> foundation_slabField = new List<StruSoft.Interop.StruXml.Data.Sffoundation_type>();
+        public List<IsolatedFoundation> IsolatedFoundations
+        {
+            get
+            {
+                var obj = this.store.OfType<StruSoft.Interop.StruXml.Data.Ptfoundation_type>().ToList();
+                var isolatedFoundation = new List<IsolatedFoundation>();
+                foreach ( var item in obj )
+                    isolatedFoundation.Add( new IsolatedFoundation(item));
+                return isolatedFoundation;
+            }
+        }
+        public List<Lnfoundation_type> wall_foundationField
+        {
+            get
+            {
+                return this.store.OfType<StruSoft.Interop.StruXml.Data.Lnfoundation_type>().ToList();
+            }
+        }
+        public List<Sffoundation_type> foundation_slabField
+        {
+            get
+            {
+                return this.store.OfType<StruSoft.Interop.StruXml.Data.Sffoundation_type>().ToList();
+            }
+        }
 
 
         public List<dynamic> GetFoundations()

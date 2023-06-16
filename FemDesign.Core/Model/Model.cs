@@ -17,13 +17,24 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
+        private StruSoft.Interop.StruXml.Data.Database store;
+        public StruSoft.Interop.StruXml.Data.Database Store
+        {
+            get { return store; }
+        }
+
+        public Model(StruSoft.Interop.StruXml.Data.Database model)
+        {
+            this.store = model;
+        }
+
         [XmlIgnore]
-        public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
+        public Calculate.Application FdApp = new Calculate.Application();
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
         /// </summary>
         [XmlAttribute("struxml_version")]
-        public string StruxmlVersion { get; set; } // versiontype
+        public string StruxmlVersion { get; set; }
         /// <summary>
         /// Name of the StruSoft or 3rd party product what generated this XML file.
         /// </summary>
@@ -58,8 +69,11 @@ namespace FemDesign
         [XmlElement("construction_stages", Order = 1)]
         public ConstructionStages ConstructionStages { get; set; }
 
-        [XmlElement("entities", Order = 2)]
-        public Entities Entities { get; set; }
+        public Entities Entities
+        {
+            get { return new Entities( this.store.Entities ); }
+            set { this.store.Entities = value.Store; }
+        }
         [XmlElement("sections", Order = 3)]
         public Sections.ModelSections Sections { get; set; }
         [XmlElement("materials", Order = 4)]
@@ -218,7 +232,7 @@ namespace FemDesign
             }
 
             //
-            XmlSerializer deserializer = new XmlSerializer(typeof(Model));
+            XmlSerializer deserializer = new XmlSerializer(typeof(StruSoft.Interop.StruXml.Data.Database));
             TextReader reader = new StreamReader(filePath);
 
             object obj;
@@ -244,7 +258,9 @@ namespace FemDesign
             }
 
             // cast type
-            Model model = (Model)obj;
+            StruSoft.Interop.StruXml.Data.Database _model = (StruSoft.Interop.StruXml.Data.Database)obj;
+
+            var model = new Model(_model);
 
             if (model.Entities == null) model.Entities = new Entities();
 
@@ -305,10 +321,10 @@ namespace FemDesign
             }
 
             // Serialize
-            XmlSerializer serializer = new XmlSerializer(typeof(Model));
+            XmlSerializer serializer = new XmlSerializer(typeof(StruSoft.Interop.StruXml.Data.Database));
             using (TextWriter writer = new StreamWriter(filePath))
             {
-                serializer.Serialize(writer, this);
+                serializer.Serialize(writer, this.store);
             }
         }
 

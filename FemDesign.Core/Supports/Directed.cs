@@ -34,6 +34,19 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class Directed
     {
+
+        private StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected store;
+        public StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected Store
+        {
+            get { return store; }
+        }
+        public Directed(StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected obj)
+        {
+            this.store = obj;
+        }
+
+
+
         [XmlElement("direction", Order = 1)]
         public Vector3d Direction;
 

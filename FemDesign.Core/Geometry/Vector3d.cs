@@ -9,12 +9,22 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class Vector3d
     {
-        [XmlAttribute("x")]
-        public double X { get; set; }
-        [XmlAttribute("y")]
-        public double Y { get; set; }
-        [XmlAttribute("z")]
-        public double Z { get; set; }
+        private StruSoft.Interop.StruXml.Data.Point_type_3d store = new StruSoft.Interop.StruXml.Data.Point_type_3d();
+        public double X
+        {
+            get { return this.store.X; }
+            set { this.store.X = value; }
+        }
+        public double Y
+        {
+            get { return this.store.Y; }
+            set { this.store.Y = value; }
+        }
+        public double Z
+        {
+            get { return this.store.Z; }
+            set { this.store.Z = value; }
+        }
 
         public static Vector3d UnitX => new Vector3d(1, 0, 0);
         public static Vector3d UnitY => new Vector3d(0, 1, 0);
@@ -318,6 +328,13 @@ namespace FemDesign.Geometry
         }
 
         public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Vector3d v) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
+            X = v.X,
+            Y = v.Y,
+            Z = v.Z
+        };
+
+        public static implicit operator Vector3d(StruSoft.Interop.StruXml.Data.Point_type_3d v) => new Vector3d
+        {
             X = v.X,
             Y = v.Y,
             Z = v.Z

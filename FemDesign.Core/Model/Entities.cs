@@ -1,6 +1,14 @@
 // https://strusoft.com/
 
+using FemDesign.AuxiliaryResults;
+using FemDesign.Bars;
+using FemDesign.Reinforcement;
+using FemDesign.Shells;
+using FemDesign.Soil;
+using FemDesign.StructureGrid;
+using StruSoft.Interop.StruXml.Data;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Xml.Serialization;
 
 namespace FemDesign
@@ -11,11 +19,27 @@ namespace FemDesign
     [System.Serializable]
     public partial class Entities
     {
-        // dummy elements are needed to deserialize an .struxml model correctly as order of elements is needed.
-        // if dummy elements are not used for undefined types deserialization will not work properly
-        // when serializing these dummy elements must be nulled. 
-        [XmlElement("foundations", Order = 1)]
-        public Foundations.Foundations Foundations { get; set; } = new Foundations.Foundations();
+        private StruSoft.Interop.StruXml.Data.DatabaseEntities store;
+        public StruSoft.Interop.StruXml.Data.DatabaseEntities Store
+        {
+            get { return store; }
+        }
+
+        public Entities()
+        {
+            this.store = new DatabaseEntities();
+        }
+
+        public Entities(DatabaseEntities store)
+        {
+            this.store = store;
+        }
+
+        public Foundations.Foundations Foundations
+        {
+            get { return new Foundations.Foundations(this.store.Foundations); }
+            set { this.store.Foundations = value.Store; }
+        }
 
         [XmlElement("soil_elements", Order = 2)]
         public FemDesign.Soil.SoilElements SoilElements { get; set; }
@@ -70,8 +94,11 @@ namespace FemDesign
         [XmlElement("loads", Order = 18)]
         public Loads.Loads Loads { get; set; } = new Loads.Loads();
 
-        [XmlElement("supports", Order = 19)]
-        public Supports.Supports Supports { get; set; } = new Supports.Supports();
+        public Supports.Supports Supports
+        {
+            get { return new Supports.Supports( this.store.Supports ); }
+            set { this.store.Supports = value.Store; }
+        }
 
         [XmlElement("advanced-fem", Order = 20)]
         public AdvancedFem AdvancedFem { get; set; } = new AdvancedFem();

@@ -14,14 +14,26 @@ namespace FemDesign.Foundations
     [System.Serializable]
     public partial class IsolatedFoundation : NamedEntityBase, IStructureElement, IFoundationElement, IStageElement
     {
+        private StruSoft.Interop.StruXml.Data.Ptfoundation_type store;
+        public StruSoft.Interop.StruXml.Data.Ptfoundation_type Store
+        {
+            get { return this.store; }
+        }
+        public IsolatedFoundation(StruSoft.Interop.StruXml.Data.Ptfoundation_type obj)
+        {
+            this.store = obj;
+        }
+
         [XmlIgnore]
         internal static int _instance = 0;
 
         protected override int GetUniqueInstanceCount() => ++_instance;
 
-        [XmlAttribute("bedding_modulus")]
-        [DefaultValue(10000)]
-        public double BeddingModulus { get; set; } = 10000;
+        public double BeddingModulus
+        {
+            get { return this.store.Bedding_modulus; }
+            set { this.store.Bedding_modulus = value; }
+        }
 
         [XmlAttribute("stage")]
         [DefaultValue(1)]

@@ -10,12 +10,22 @@ namespace FemDesign.Geometry
     [System.Serializable]
     public partial class Point3d
     {
-        [XmlAttribute("x")]
-        public double X;
-        [XmlAttribute("y")]
-        public double Y;
-        [XmlAttribute("z")]
-        public double Z;
+        private StruSoft.Interop.StruXml.Data.Point_type_3d _store = new StruSoft.Interop.StruXml.Data.Point_type_3d();
+        public double X
+        {
+            get { return this._store.X; }
+            set { this._store.X = value; }
+        }
+        public double Y
+        {
+            get { return this._store.Y; }
+            set { this._store.Y = value; }
+        }
+        public double Z
+        {
+            get { return this._store.Z; }
+            set { this._store.Z = value; }
+        }
 
         /// <summary>
         /// Construct FdPoint3d in origin
@@ -195,11 +205,21 @@ namespace FemDesign.Geometry
 
         }
 
-        public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d{
+        public static implicit operator StruSoft.Interop.StruXml.Data.Point_type_3d(Point3d p) => new StruSoft.Interop.StruXml.Data.Point_type_3d
+        {
             X = p.X,
             Y = p.Y,
             Z = p.Z
         };
+
+        public static implicit operator Point3d(StruSoft.Interop.StruXml.Data.Point_type_3d p) => new Point3d
+        {
+            X = p.X,
+            Y = p.Y,
+            Z = p.Z
+        };
+
+
 
 
         public override string ToString()

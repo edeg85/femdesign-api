@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) StruSoft 2012-2021, http://www.strusoft.com -->
+<database struxml_version="01.00.000" source_software="FEM-Design 22.00.004" start_time="1970-01-01T00:00:00.000" end_time="2023-06-16T10:57:07.000" guid="db1ca0fc-c796-4701-a91e-c5995790413d" convertid="00000000-0000-0000-0000-000000000000" standard="EC" country="GB" xmlns="urn:strusoft">
+	<entities>
+		<supports>
+			<point_support guid="05a3714a-b1f2-4483-81b6-a4fd3d18fca0" last_change="2023-06-16T10:57:07.000" action="added" name="PSG.1">
+				<group>
+					<local_x x="1" y="0" z="0"></local_x>
+					<local_y x="0" y="1" z="0"></local_y>
+					<rigidity_group>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="0" Kx_pos="0" Ky_neg="2" Ky_pos="2" Kz_neg="10000000000" Kz_pos="5" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="0" Cx_pos="0" Cy_neg="0" Cy_pos="0" Cz_neg="0" Cz_pos="0"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<springs Kx_neg="10000000000" Kx_pos="10000000000" Ky_neg="10000000000" Ky_pos="10000000000" Kz_neg="10000000000" Kz_pos="10000000000" Cx_neg="10000000000" Cx_pos="10000000000" Cy_neg="10000000000" Cy_pos="10000000000" Cz_neg="10000000000" Cz_pos="10000000000"></springs>
+						<plastic_limits></plastic_limits>
+						<plastic_limits></plastic_limits>
+						<plastic_limits></plastic_limits>
+						<plastic_limits moment_x_neg="234" moment_x_pos="234" moment_y_neg="456" moment_y_pos="456"></plastic_limits>
+					</rigidity_group>
+				</group>
+				<position x="90.5480944438425" y="79.5083269117842" z="0"></position>
+			</point_support>
+		</supports>
+	</entities>
+	<end></end>
+</database>

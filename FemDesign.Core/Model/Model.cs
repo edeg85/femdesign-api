@@ -162,6 +162,7 @@ namespace FemDesign
 
         private void Initialize(Country country)
         {
+            this.store = new StruSoft.Interop.StruXml.Data.Database();
             this.store.Struxml_version = "01.00.000";
             this.store.Source_software = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             this.store.Start_time = new System.DateTime(1970,01,01,00,00,00,00);
@@ -2414,6 +2415,7 @@ namespace FemDesign
         /// </summary>
         private bool PointSupportInModel(Supports.PointSupport obj)
         {
+
             foreach (Supports.PointSupport elem in this.Entities.Supports.PointSupport)
             {
                 if (elem.Guid == obj.Guid)

@@ -47,7 +47,7 @@ namespace FemDesign.Supports
                 group.Local_x = value.LocalX;
                 group.Local_y = value.LocalY;
                 this.store.Item = group;
-                if (value != null) Directed = null;
+                //if (value != null) Directed = null;
             }
         }
 
@@ -60,10 +60,12 @@ namespace FemDesign.Supports
             }
             set
             {
-                var group = new StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected();
-                group.Direction = value.Direction;
-                this.store.Item = group;
-                if (value != null) Group = null;
+                if (value != null)
+                {
+                    var group = new StruSoft.Interop.StruXml.Data.Support_rigidity_data_typeDirected();
+                    group.Direction = value.Direction;
+                    this.store.Item = group;
+                }
             }
         }
 
@@ -186,6 +188,7 @@ namespace FemDesign.Supports
 
         private void Initialize(Plane point, Group group, string identifier)
         {
+            this.store = new StruSoft.Interop.StruXml.Data.Point_support_type();
             this.EntityCreated();
             this.Identifier = identifier;
             this.Group = group;

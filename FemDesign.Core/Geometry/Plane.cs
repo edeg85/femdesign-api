@@ -5,7 +5,17 @@ namespace FemDesign.Geometry
 {
     public class Plane
     {
-        private StruSoft.Interop.StruXml.Data.Opt_localsys_type store = new StruSoft.Interop.StruXml.Data.Opt_localsys_type();
+        private StruSoft.Interop.StruXml.Data.Opt_localsys_type store;
+
+        public StruSoft.Interop.StruXml.Data.Opt_localsys_type Store
+        {
+            get { return this.store; }
+        }
+
+        public Plane(StruSoft.Interop.StruXml.Data.Opt_localsys_type obj)
+        {
+            this.store = obj;
+        }
 
         public Point3d Origin
         {
@@ -77,6 +87,7 @@ namespace FemDesign.Geometry
 
         private void Initialise(Point3d origin, Vector3d xDir, Vector3d yDir)
         {
+            this.store = new StruSoft.Interop.StruXml.Data.Opt_localsys_type();
             Origin = origin;
             if (xDir.IsPerpendicular(yDir))
             {

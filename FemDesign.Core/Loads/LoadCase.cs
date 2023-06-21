@@ -12,6 +12,7 @@ namespace FemDesign.Loads
     [System.Serializable]
     public partial class LoadCase: EntityBase
     {
+        internal StruSoft.Interop.StruXml.Data.Load_case_type store;
         // attributes
         [XmlAttribute("name")]
         public string Name { get; set; } // name79

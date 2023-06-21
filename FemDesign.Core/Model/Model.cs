@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign
 {
@@ -17,6 +18,7 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
+        private StruSoft.Interop.StruXml.Data.Database store;
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
@@ -167,42 +169,43 @@ namespace FemDesign
 
         private void Initialize(Country country)
         {
-            this.StruxmlVersion = "01.00.000";
-            this.SourceSoftware = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
-            this.StartTime = "1970-01-01T00:00:00.000";
-            this.EndTime = System.DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
-            this.Guid = System.Guid.NewGuid();
-            this.ConvertId = "00000000-0000-0000-0000-000000000000";
-            this.Standard = "EC";
-            this.Country = country;
-            this.End = "";
+            this.store = new StruSoft.Interop.StruXml.Data.Database();
+            this.store.Struxml_version = "01.00.000";
+            this.store.Source_software = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version}";
+            this.store.Start_time = DateTime.ParseExact("1970-01-01T00:00:00.000", "yyyy-MM-dd'T'HH:mm:ss.fff", CultureInfo.InvariantCulture);
+            this.store.End_time = System.DateTime.Now;
+            this.store.Guid = System.Guid.NewGuid().ToString();
+            this.store.Convertid = "00000000-0000-0000-0000-000000000000";
+            this.store.Standard = Standardtype.EC;
+            this.store.Country = (Eurocodetype)EnumConverter.ConvertEnum(country);
+            this.store.End = new Empty_type();
 
-            // Check if model contains entities, sections and materials, else these needs to be initialized.
-            if (this.Entities == null)
-            {
-                this.Entities = new Entities();
-            }
-            if (this.Sections == null)
-            {
-                this.Sections = new Sections.ModelSections();
-            }
-            if (this.Materials == null)
-            {
-                this.Materials = new Materials.Materials();
-            }
-            if (this.ReinforcingMaterials == null)
-            {
-                this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
-            }
-            if (this.LineConnectionTypes == null)
-            {
-                this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
-                this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
-            }
-            if (this.PtcStrandTypes == null)
-            {
-                this.PtcStrandTypes = new Reinforcement.PtcStrandType();
-            }
+            //// Check if model contains entities, sections and materials, else these needs to be initialized.
+            //if (this.store.Entities == null)
+            //{
+            //    this.store.Entities = new DatabaseEntities();
+            //}
+            //if (this.store.Sections == null)
+            //{
+            //    this.store.Sections = new DatabaseSections();
+            //}
+            //if (this.Materials == null)
+            //{
+            //    this.Materials = new Materials.Materials();
+            //}
+            //if (this.ReinforcingMaterials == null)
+            //{
+            //    this.ReinforcingMaterials = new Materials.ReinforcingMaterials();
+            //}
+            //if (this.LineConnectionTypes == null)
+            //{
+            //    this.LineConnectionTypes = new LibraryItems.LineConnectionTypes();
+            //    this.LineConnectionTypes.PredefinedTypes = new List<Releases.RigidityDataLibType3>();
+            //}
+            //if (this.PtcStrandTypes == null)
+            //{
+            //    this.PtcStrandTypes = new Reinforcement.PtcStrandType();
+            //}
         }
 
         #region serialization

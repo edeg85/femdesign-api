@@ -11,6 +11,8 @@ namespace FemDesign.Loads
     [System.Serializable]
     public partial class PointLoad: ForceLoadBase
     {
+        internal StruSoft.Interop.StruXml.Data.Point_load_type store;
+
         [XmlElement("direction")]
         public Geometry.Vector3d Direction { get; set; } // point_type_3d
         [XmlElement("load")]

@@ -64,6 +64,7 @@
     <Compile Include="Calculate\CmdLodGroupToLoadComb.cs" />
     <Compile Include="Calculate\Imperfection.cs" />
     <Compile Include="Calculate\Stability.cs" />
+    <Compile Include="Database_Singleton.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />
     <Compile Include="Drawing\DimensionLinear.cs" />
     <Compile Include="ErrorHandling\ErrorHandling.cs" />

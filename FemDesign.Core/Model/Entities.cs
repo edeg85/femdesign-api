@@ -11,6 +11,17 @@ namespace FemDesign
     [System.Serializable]
     public partial class Entities
     {
+        internal StruSoft.Interop.StruXml.Data.DatabaseEntities store;
+
+        internal Entities()
+        {
+
+        }
+
+        internal Entities(StruSoft.Interop.StruXml.Data.DatabaseEntities db)
+        {
+            this.store = db;
+        }
         // dummy elements are needed to deserialize an .struxml model correctly as order of elements is needed.
         // if dummy elements are not used for undefined types deserialization will not work properly
         // when serializing these dummy elements must be nulled. 

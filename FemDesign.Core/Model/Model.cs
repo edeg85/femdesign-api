@@ -8,6 +8,9 @@ using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
+using StruXml = StruSoft.Interop.StruXml;
+
+
 namespace FemDesign
 {
     /// <summary>
@@ -17,25 +20,60 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
+
+        private StruXml.Data.Database store;
+
+        private Model(StruSoft.Interop.StruXml.Data.Database obj)
+        {
+            this.store = obj;
+        }
+
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
         /// The actual struXML version;  should be equal to the schema version the xml file is conformed to.
         /// </summary>
-        [XmlAttribute("struxml_version")]
-        public string StruxmlVersion { get; set; } // versiontype
+        public string StruxmlVersion
+        {
+            get
+            {
+                return this.store.Struxml_version;
+            }
+            set
+            {
+                this.store.Struxml_version = value;
+            }
+        }
         /// <summary>
         /// Name of the StruSoft or 3rd party product what generated this XML file.
         /// </summary>
-        [XmlAttribute("source_software")]
-        public string SourceSoftware { get; set; } // string
+        public string SourceSoftware
+        {
+            get
+            {
+                return this.store.Source_software;
+            }
+            set
+            {
+                this.store.Source_software = value;
+            }
+        }
         /// <summary>
         /// The data is partial data, so the oldest entity latest modification date and time is the
         /// value in UTC. If the current XML contains the whole database, the start_time value is
         /// "1970-01-01T00:00:00Z". The date and time always in UTC!
         /// </summary>
-        [XmlAttribute("start_time")]
-        public string StartTime { get; set; } // dateTime
+        public string StartTime
+        {
+            get
+            {
+                return this.store.Start_time.ToString();
+            }
+            set
+            {
+                this.store.Start_time = DateTime.ParseExact(value, "yyyy-MM-dd'T'HH:mm:ss.fff", CultureInfo.InvariantCulture);
+            }
+        }
         /// <summary>
         /// The data is partial data, so the newest entity latest modification date and time is this
         /// value in UTC. This date and time always in UTC!
@@ -58,8 +96,17 @@ namespace FemDesign
         [XmlElement("construction_stages", Order = 1)]
         public ConstructionStages ConstructionStages { get; set; }
 
-        [XmlElement("entities", Order = 2)]
-        public Entities Entities { get; set; }
+        public Entities Entities
+        {
+            get
+            {
+                return new Entities( this.store.Entities );
+            }
+            set
+            {
+                this.store.Entities = value.store;
+            }
+        }
         [XmlElement("sections", Order = 3)]
         public Sections.ModelSections Sections { get; set; }
         [XmlElement("materials", Order = 4)]
@@ -244,7 +291,9 @@ namespace FemDesign
             }
 
             // cast type
-            Model model = (Model)obj;
+            var _model = (StruXml.Data.Database)obj;
+
+            var model = new Model(_model);
 
             if (model.Entities == null) model.Entities = new Entities();
 

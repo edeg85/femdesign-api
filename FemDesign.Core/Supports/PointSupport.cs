@@ -13,6 +13,12 @@ namespace FemDesign.Supports
     [System.Serializable]
     public partial class PointSupport : NamedEntityBase, IStructureElement, ISupportElement, IStageElement
     {
+        internal StruSoft.Interop.StruXml.Data.Point_support_type store;
+        internal PointSupport(StruSoft.Interop.StruXml.Data.Point_support_type obj)
+        {
+            this.store = obj;
+        }
+
         [XmlIgnore]
         internal static int _instance = 0; // Shared instance counter for both PointSupport and LineSupport
         protected override int GetUniqueInstanceCount() => ++_instance;
@@ -59,8 +65,21 @@ namespace FemDesign.Supports
             }
         }
 
-        [XmlElement("position", Order = 3)]
-        public Point3d Position { get; set; } // point_type_3d
+
+        public Point3d Position
+        {
+            get
+            {
+                return new Point3d(this.store.Position.X, this.store.Position.Y, this.store.Position.Z);
+            }
+            set
+            {
+                this.store.Position = new StruSoft.Interop.StruXml.Data.Point_type_3d();
+                this.store.Position.X = value.X;
+                this.store.Position.Y = value.Y;
+                this.store.Position.Z = value.Z;
+            }
+        }
         public Motions Motions { get { return Group?.Rigidity?.Motions; } }
         public MotionsPlasticLimits MotionsPlasticityLimits { get { return Group?.Rigidity?.PlasticLimitForces; } }
         public Rotations Rotations { get { return Group?.Rigidity?.Rotations; } }
@@ -159,6 +178,7 @@ namespace FemDesign.Supports
 
         private void Initialize(Plane point, Group group, string identifier)
         {
+            this.store = new StruSoft.Interop.StruXml.Data.Point_support_type();
             this.EntityCreated();
             this.Identifier = identifier;
             this.Group = group;

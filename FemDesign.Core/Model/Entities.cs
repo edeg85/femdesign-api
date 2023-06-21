@@ -15,16 +15,14 @@ namespace FemDesign
 
         internal Entities()
         {
-
+            this.store = new StruSoft.Interop.StruXml.Data.DatabaseEntities();
         }
 
         internal Entities(StruSoft.Interop.StruXml.Data.DatabaseEntities db)
         {
             this.store = db;
         }
-        // dummy elements are needed to deserialize an .struxml model correctly as order of elements is needed.
-        // if dummy elements are not used for undefined types deserialization will not work properly
-        // when serializing these dummy elements must be nulled. 
+
         [XmlElement("foundations", Order = 1)]
         public Foundations.Foundations Foundations { get; set; } = new Foundations.Foundations();
 
@@ -70,8 +68,6 @@ namespace FemDesign
         [XmlElement("shear_control_region", Order = 15)]
         public List<Reinforcement.ShearControlRegionType> NoShearControlRegions { get; set; } = new List<Reinforcement.ShearControlRegionType>();
 
-        //[XmlElement("surface_shear_reinforcement", Order = 14)]
-
         [XmlElement("panel", Order = 16)]
         public List<Shells.Panel> Panels { get; set; } = new List<Shells.Panel>();
 
@@ -81,8 +77,20 @@ namespace FemDesign
         [XmlElement("loads", Order = 18)]
         public Loads.Loads Loads { get; set; } = new Loads.Loads();
 
-        [XmlElement("supports", Order = 19)]
-        public Supports.Supports Supports { get; set; } = new Supports.Supports();
+        //[XmlElement("supports", Order = 19)]
+        //public Supports.Supports Supports { get; set; } = new Supports.Supports();
+
+        public Supports.Supports Supports
+        {
+            get
+            {
+                return new Supports.Supports(this.store.Supports);
+            }
+            set
+            {
+                this.store.Supports = value.store;
+            }
+        }
 
         [XmlElement("advanced-fem", Order = 20)]
         public AdvancedFem AdvancedFem { get; set; } = new AdvancedFem();

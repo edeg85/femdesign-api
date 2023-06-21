@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 
 using StruXml = StruSoft.Interop.StruXml;
-
+using StruSoft.Interop.StruXml.Data;
 
 namespace FemDesign
 {
@@ -21,7 +21,12 @@ namespace FemDesign
     public partial class Model
     {
 
-        private StruXml.Data.Database store;
+        internal StruXml.Data.Database store;
+
+        private Model()
+        {
+            this.store = new Database();
+        }
 
         private Model(StruSoft.Interop.StruXml.Data.Database obj)
         {
@@ -88,10 +93,14 @@ namespace FemDesign
         [XmlAttribute("standard")]
         public string Standard { get; set; } // standardtype
         /// <summary>National annex of calculation code</summary>
-        [XmlAttribute("country")]
-        public Country Country { get; set; } // eurocodetype
-        [XmlAttribute("xmlns")]
-        public string Xmlns { get; set; }
+
+        public Country Country
+        {
+            get { return (Country)EnumConverter.ConvertEnum(this.store.Country); }
+            set { this.store.Country = (Eurocodetype)EnumConverter.ConvertEnum(value); }
+        }
+        //[XmlAttribute("xmlns")]
+        //public string Xmlns { get; set; }
 
         [XmlElement("construction_stages", Order = 1)]
         public ConstructionStages ConstructionStages { get; set; }
@@ -100,6 +109,8 @@ namespace FemDesign
         {
             get
             {
+                if(this.store.Entities == null)
+                    this.store.Entities = new DatabaseEntities();
                 return new Entities( this.store.Entities );
             }
             set
@@ -173,14 +184,6 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// Parameterless constructor for serialization.
-        /// </summary>
-        private Model()
-        {
-
-        }
-
-        /// <summary>
         /// Initialize a model with elements.
         /// </summary>
         /// <param name="country">Country/Annex of the FEM-Design model.</param>
@@ -214,6 +217,9 @@ namespace FemDesign
 
         private void Initialize(Country country)
         {
+            this.store = new StruXml.Data.Database();
+            this.store.Entities = new DatabaseEntities();
+            this.store.Entities.Supports = new DatabaseEntitiesSupports();
             this.StruxmlVersion = "01.00.000";
             this.SourceSoftware = $"FEM-Design API SDK {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             this.StartTime = "1970-01-01T00:00:00.000";
@@ -354,10 +360,10 @@ namespace FemDesign
             }
 
             // Serialize
-            XmlSerializer serializer = new XmlSerializer(typeof(Model));
+            XmlSerializer serializer = new XmlSerializer(typeof(StruSoft.Interop.StruXml.Data.Database));
             using (TextWriter writer = new StreamWriter(filePath))
             {
-                serializer.Serialize(writer, this);
+                serializer.Serialize(writer, this.store);
             }
         }
 
@@ -2421,7 +2427,7 @@ namespace FemDesign
             }
 
             // add obj
-            this.Entities.Supports.PointSupport.Add(obj);
+            this.store.Entities.Supports.Point_support.Add(obj.store);
 
             // add predefined rigidity
             if (obj.Group?.PredefRigidity != null)
@@ -3935,4 +3941,53 @@ namespace FemDesign
 
         #endregion
     }
+
+    public static class EnumConverter
+    {
+        public static object ConvertEnum(Country value)
+        {
+            switch (value)
+            {
+                case Country.S:
+                    return StruXml.Data.Eurocodetype.S;
+                case Country.N:
+                    return StruXml.Data.Eurocodetype.N;
+                case Country.DK:
+                    return StruXml.Data.Eurocodetype.N;
+                default:
+                    throw new ArgumentException("Invalid value");
+            }
+        }
+
+        public static object ConvertEnum(StruXml.Data.Eurocodetype value)
+        {
+            switch (value)
+            {
+                case StruXml.Data.Eurocodetype.S:
+                    return Country.S;
+                case StruXml.Data.Eurocodetype.N:
+                    return Country.N;
+                case StruXml.Data.Eurocodetype.NL:
+                    return Country.NL;
+                default:
+                    throw new ArgumentException("Invalid value");
+            }
+        }
+
+        public static object ConvertEnum(FemDesign.Bars.BarType value)
+        {
+            switch (value)
+            {
+                case FemDesign.Bars.BarType.Beam:
+                    return StruXml.Data.Beamtype.Beam;
+                case FemDesign.Bars.BarType.Column:
+                    return StruXml.Data.Beamtype.Column;
+                case FemDesign.Bars.BarType.Truss:
+                    return StruXml.Data.Beamtype.Truss;
+                default:
+                    throw new ArgumentException("Invalid value");
+            }
+        }
+    }
+
 }

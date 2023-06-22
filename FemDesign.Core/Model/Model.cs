@@ -7,6 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
+using System.Xml.Schema;
+using System.Xml;
+using System.Runtime.CompilerServices;
 
 namespace FemDesign
 {
@@ -17,6 +20,8 @@ namespace FemDesign
     [XmlRoot("database", Namespace = "urn:strusoft")]
     public partial class Model
     {
+        private const string _struxmlSchemaResourceName = "FemDesign.FD 22.00.004.xsd";
+
         [XmlIgnore]
         public Calculate.Application FdApp = new Calculate.Application(); // start a new FdApp to get process information.
         /// <summary>
@@ -205,6 +210,23 @@ namespace FemDesign
             }
         }
 
+        private static void _validate(string filePath)
+        {
+            // Validate
+            XmlDocument xmlDocument = new XmlDocument();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream schemaStream = assembly.GetManifestResourceStream(_struxmlSchemaResourceName))
+            {
+                XmlTextReader schemaReader = new XmlTextReader(schemaStream);
+                XmlSchema struxmlSchema = XmlSchema.Read(schemaReader, (o, e) => throw e.Exception);
+
+                xmlDocument.Schemas.Add(struxmlSchema);
+                xmlDocument.Load(filePath);
+                xmlDocument.Validate((o, e) => throw e.Exception);
+            }
+        }
+
         #region serialization
         /// <summary>
         /// Deserialize model from file (.struxml).
@@ -216,6 +238,9 @@ namespace FemDesign
             {
                 throw new System.ArgumentException("File extension must be .struxml! Model.DeserializeModel failed.");
             }
+
+            _validate(filePath);
+
 
             //
             XmlSerializer deserializer = new XmlSerializer(typeof(Model));

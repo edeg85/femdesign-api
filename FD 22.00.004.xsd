@@ -2124,7 +2124,7 @@
 
   <xs:attributeGroup name="limit_stresses" >
     <xs:attribute name="fm0k"      type="positive_max_1e17" use="required" />
-    <xs:attribute name="fm90k"     type="positive_max_1e17" use="required" />
+    <xs:attribute name="fm90k"     type="non_neg_max_1e17"  use="required" /> <!-- From FD22.00.002: from positive_max_1e17 to non_neg_max_1e17 -->
     <xs:attribute name="ft0k"      type="positive_max_1e17" use="required" />
     <xs:attribute name="ft90k"     type="positive_max_1e17" use="required" />
     <xs:attribute name="fc0k"      type="positive_max_1e17" use="required" />
@@ -3543,7 +3543,7 @@
         <xs:element name="local_pos"   type="point_type_3d" />
         <xs:element name="local_x"     type="point_type_3d" />
         <xs:element name="local_y"     type="point_type_3d" />
-        <xs:element name="reference_points_offset" type="point_type_3d"  minOccurs="0" maxOccurs="1" /> <!-- From FD18, offset of reference point, default: null vector -->
+        <xs:element name="reference_points_offset" type="point_type_3d"  minOccurs="0" maxOccurs="1" /> <!-- From FD22.00.002: not used (From FD18, offset of reference point, default: null vector) -->
 
         <xs:element name="region" type="region_type" />
      </xs:sequence>
@@ -3662,7 +3662,7 @@
                          <xs:sequence>
                             <xs:element name="wire"        type="rf_wire_type" />
                          </xs:sequence>
-                         <xs:attribute name="inner_radius" type="positive_double"     use="required" />
+                         <xs:attribute name="inner_radius" type="non_negative_double"     use="required" />
                          <xs:attribute name="overlap"      type="non_negative_double" use="required" />
                          <xs:anyAttribute   processContents="skip"/>
                       </xs:complexType>
@@ -4433,7 +4433,10 @@
   <xs:complexType name="surface_temperature_load_type">
     <xs:sequence>
       <xs:element name="region"      type="region_type" />
-      <xs:element name="temperature" type="topbottom_value" minOccurs="1" maxOccurs="3" />
+        <xs:choice>
+          <xs:element name="temperature" type="topbottom_value" minOccurs="1" maxOccurs="3" />        <!-- Until FD22.00.001. Warning: The values of top_val and bottom_val are swapped! -->
+          <xs:element name="temperature_values" type="topbottom_value" minOccurs="1" maxOccurs="3" /> <!-- From FD22.00.002, with good values. -->
+        </xs:choice>
     </xs:sequence>
     <xs:attributeGroup ref="entity_attribs" />
     <xs:attributeGroup ref="load_baseattribs" />
@@ -4872,7 +4875,7 @@
          <xs:element name="added_vehicle_position"   type="point_type_3d"     minOccurs="0" maxOccurs="unbounded" />
          <xs:element name="deleted_vehicle_position" type="point_type_3d"     minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
-        <!-- 2nd choic, from FD21: -->
+        <!-- 2nd choice from FD21: -->
         <xs:sequence>
          <xs:element name="vehicle_positions"                                 minOccurs="0" maxOccurs="1" >
            <xs:complexType>
@@ -5555,7 +5558,7 @@
   <!-- dimtext for geometry -->
   <xs:complexType name="dimtext_type">
     <xs:sequence>
-      <xs:element name="position" type="font_type" />
+      <xs:element name="position" type="point_type_3d" />
       <xs:element name="plane_x"  type="point_type_3d" />
       <xs:element name="plane_y"  type="point_type_3d" />
     </xs:sequence>
@@ -5628,7 +5631,7 @@
       <xs:element name="extension_line"   type="extline_type" />
       <xs:element name="arrow"            type="arrow_type" />
       <xs:element name="font"             type="font_type" />
-      <xs:element name="text"             type="dimtext_type" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="text"             type="dimtext_type" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute      name="guid"        type="guidtype"          use="required" />
     <xs:attribute      name="dynamic"     type="xs:boolean"        default="false" />

@@ -441,6 +441,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
+    <EmbeddedResource Include="..\FD 22.00.004.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Calculate\Config\cmdglobalcfg.xml">

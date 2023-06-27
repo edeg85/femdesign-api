@@ -210,10 +210,28 @@ namespace FemDesign
             }
         }
 
+        private static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            string err = "";
+
+            if (e.Severity == XmlSeverityType.Error)
+            {
+                err += "Validation Error: " + e.Message + "\n";
+                err += "Error occurred at line: " + e.Exception.LineNumber + "\n";
+                err += "Error occurred at position: " + e.Exception.LinePosition + "\n";
+
+                return "";
+            }
+            else
+                return err;
+        }
+
         private static void _validate(string filePath)
         {
             // Validate
             XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.PreserveWhitespace = true;
+            
             Assembly assembly = Assembly.GetExecutingAssembly();
 
             using (Stream schemaStream = assembly.GetManifestResourceStream(_struxmlSchemaResourceName))
@@ -223,7 +241,16 @@ namespace FemDesign
 
                 xmlDocument.Schemas.Add(struxmlSchema);
                 xmlDocument.Load(filePath);
-                xmlDocument.Validate((o, e) => throw e.Exception);
+
+                xmlDocument.Validate((o, e) =>
+                {
+                    string err = "";
+
+                    err += $"Validation Error: {e.Message}\n";
+                    err += $"Error occurred at line: {e.Exception.LineNumber}\n";
+
+                    throw new Exception(err);
+                });
             }
         }
 
@@ -238,8 +265,6 @@ namespace FemDesign
             {
                 throw new System.ArgumentException("File extension must be .struxml! Model.DeserializeModel failed.");
             }
-
-            _validate(filePath);
 
 
             //
@@ -260,6 +285,9 @@ namespace FemDesign
                         throw ex.InnerException.InnerException; // FEM-Design 21 - 3D Structure must be running! Start FEM-Design " + this.FdTargetVersion + " - 3D Structure and reload script
                     }
                 }
+
+                _validate(filePath);
+
                 throw ex; // There is an error in XML document (3, 2).
             }
             finally

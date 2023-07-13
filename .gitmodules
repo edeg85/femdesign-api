@@ -1,0 +1,3 @@
+[submodule "femdesign-api-resources"]
+	path = femdesign-api-resources
+	url = https://github.com/Marco-Pellegrino/femdesign-api-resources

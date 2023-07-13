@@ -415,7 +415,8 @@
     <Compile Include="Supports\Supports.cs" />
     <Compile Include="Supports\SurfaceSupport.cs" />
   </ItemGroup>
-  <ItemGroup>
+  
+  <!-- <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -430,19 +431,37 @@
     <EmbeddedResource Include="Resources\materialLibrary\materials_PL.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_RO.struxml" />
     <EmbeddedResource Include="Resources\materialLibrary\materials_TR.struxml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\materialLibrary\materials_S.struxml" />
     <EmbeddedResource Include="Resources\sectionLibrary\sections.struxml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_S.struxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
     <EmbeddedResource Include="Resources\loadCoefficients\loadCoefficients_N.struxml" />
     <EmbeddedResource Include="Resources\Vehicles\vehicles.struxml" />
+  </ItemGroup> -->
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_D.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_DK.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_EST.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_FIN.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_GB.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_H.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_N.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_PL.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_RO.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_TR.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\materialLibrary\materials_S.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\sectionLibrary\sections.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\loadCoefficients\loadCoefficients_S.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\loadCoefficients\loadCoefficients_N.struxml" />
+    <EmbeddedResource Include="femdesign-api-resources\Vehicles\vehicles.struxml" />
   </ItemGroup>
+
+
   <ItemGroup>
     <None Include="Calculate\Config\cmdglobalcfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

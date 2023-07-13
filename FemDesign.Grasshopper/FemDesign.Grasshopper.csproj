@@ -920,7 +920,6 @@
     <None Include="Resources\icons\PeakSmoothingRegion.png" />
     <EmbeddedResource Include="Resources\icons\DesignGroup.png" />
     <None Include="Resources\icons\Patch.png" />
-    <None Include="Resources\icons\Patch.png.png" />
     <None Include="Resources\icons\Layer.png" />
     <None Include="Resources\icons\Rebar.png" />
     <None Include="Resources\icons\DimensionLinearDeconstruct.bmp" />

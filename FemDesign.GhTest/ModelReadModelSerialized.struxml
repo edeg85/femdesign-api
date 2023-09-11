@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" start_time="1970-01-01T00:00:00.000" end_time="2023-04-28T17:47:56.000" struxml_version="01.00.000" source_software="FEM-Design 22.00.002" guid="74ec8437-0136-4209-9563-dfc541e174c0" country="common" convertid="00000000-0000-0000-0000-000000000000" standard="EC" xmlns="urn:strusoft">
+  <entities>
+    <foundations />
+    <bar last_change="2023-04-28T17:44:07.000" guid="9a379af2-0ae4-415d-802b-354e9481743c" action="added" type="column" stage="1" maxforce="0" name="C.1" tension="0" tensions_plasticity="false" compressions_plasticity="false">
+      <bar_part last_change="2023-04-28T17:44:07.000" guid="db75cb94-61e4-43f9-86f3-f0feb0193c20" action="added" name="C.1.1" stage="1" complex_material="53eba8f4-7f83-48f1-ad32-75e2773dbdc3" ecc_calc="true" made="rolled" complex_section="1547bd45-ce7b-4a88-a0a2-6c6944a2c3c3">
+        <curve start_angle="0" end_angle="0" type="line" radius="0">
+          <point x="0" y="0" z="0" />
+          <point x="0" y="0" z="6" />
+        </curve>
+        <local-y x="0" y="1" z="0" />
+        <connectivity m_x_release="0" m_y_release="0" m_z_release="0" r_x_release="0" r_y_release="0" r_z_release="0" m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true" />
+        <connectivity m_x_release="0" m_y_release="0" m_z_release="0" r_x_release="0" r_y_release="0" r_z_release="0" m_x="true" m_y="true" m_z="true" r_x="true" r_y="true" r_z="true" />
+        <eccentricity use_default_physical_alignment="true">
+          <analytical x="0" y="0" z="0" />
+          <analytical x="0" y="0" z="0" />
+          <physical x="0" y="0" z="0" />
+          <physical x="0" y="0" z="0" />
+        </eccentricity>
+        <end />
+      </bar_part>
+      <end />
+    </bar>
+    <loads>
+      <point_load last_change="2023-04-28T17:38:16.000" guid="b22b744a-e883-45ec-bab1-28cce9b233f4" action="added" load_case="7ababa22-5d77-405a-ad0d-b3fe63eab325" load_type="force">
+        <direction x="0" y="0" z="-1" />
+        <load x="0" y="0" z="6" val="300" />
+      </point_load>
+      <point_load last_change="2023-04-28T17:47:40.000" guid="06532ac1-9086-46d5-abbc-3405ec55154b" action="added" load_case="3037308c-dc03-4063-b1bd-c838fe79d95c" load_type="force">
+        <direction x="0" y="0" z="-1" />
+        <load x="0" y="0" z="6" val="600" />
+      </point_load>
+      <line_load last_change="2023-04-28T17:45:17.000" guid="82a39780-10df-4a5b-a142-c14782e7cbf6" action="added" load_case="5a0dfa0c-8aae-41a4-8ed7-c4ae9ce528b2" load_type="force" load_dir="constant" load_projection="false">
+        <edge start_angle="0" end_angle="0" type="line" radius="0">
+          <point x="0" y="0" z="0" />
+          <point x="0" y="0" z="6" />
+          <normal x="1" y="0" z="0" />
+        </edge>
+        <direction x="0" y="0" z="-1" />
+        <normal x="0" y="1" z="0" />
+        <load x="0" y="0" z="0" val="10" />
+        <load x="0" y="0" z="6" val="10" />
+      </line_load>
+      <line_load last_change="2023-04-28T17:47:56.000" guid="0d537094-2331-42d6-b568-43dde93aaef7" action="added" load_case="7ababa22-5d77-405a-ad0d-b3fe63eab325" load_type="force" load_dir="constant" load_projection="false">
+        <edge start_angle="0" end_angle="0" type="line" radius="0">
+          <point x="0" y="0" z="0" />
+          <point x="0" y="0" z="6" />
+          <normal x="1" y="0" z="0" />
+        </edge>
+        <direction x="0" y="0" z="-1" />
+        <normal x="0" y="1" z="0" />
+        <load x="0" y="0" z="0" val="50" />
+        <load x="0" y="0" z="6" val="50" />
+      </line_load>
+      <load_case last_change="2023-04-28T17:37:29.000" guid="5a0dfa0c-8aae-41a4-8ed7-c4ae9ce528b2" action="added" name="distributed load" type="static" duration_class="permanent" />
+      <load_case last_change="2023-04-28T17:40:21.000" guid="7ababa22-5d77-405a-ad0d-b3fe63eab325" action="added" name="force 1" type="static" duration_class="permanent" />
+      <load_case last_change="2023-04-28T17:40:21.000" guid="3037308c-dc03-4063-b1bd-c838fe79d95c" action="added" name="force 2" type="static" duration_class="permanent" />
+      <load_combination last_change="2023-04-28T17:42:30.000" guid="147f3285-590e-4817-9656-fa7d9b2d75c7" action="added" name="LC1ULS" type="ultimate_ordinary">
+        <load_case gamma="1.35" guid="5a0dfa0c-8aae-41a4-8ed7-c4ae9ce528b2" />
+        <load_case gamma="1.5" guid="7ababa22-5d77-405a-ad0d-b3fe63eab325" />
+      </load_combination>
+      <load_combination last_change="2023-04-28T17:42:30.000" guid="9812d294-d1c4-42ae-8eb7-41ead35c8ea6" action="added" name="LC2ULS" type="ultimate_ordinary">
+        <load_case gamma="1.35" guid="5a0dfa0c-8aae-41a4-8ed7-c4ae9ce528b2" />
+        <load_case gamma="1.5" guid="3037308c-dc03-4063-b1bd-c838fe79d95c" />
+      </load_combination>
+      <load_group_table last_change="2023-04-28T17:40:21.000" action="added" simple_combination_method="false">
+        <group name="LG-1" guid="faee6b92-d38b-409a-ad08-12465be2cbc2">
+          <permanent relationship="entire" xi="0.85" standard_favourable="1" standard_unfavourable="1.35" accidental_favourable="1" accidental_unfavourable="1">
+            <load_case guid="5a0dfa0c-8aae-41a4-8ed7-c4ae9ce528b2" />
+          </permanent>
+        </group>
+        <group name="LG-2" guid="acc0a8af-c8e3-4607-8525-20d1be825c7c">
+          <temporary relationship="entire" safety_factor="1.5" psi_0="0.7" psi_1="0.5" psi_2="0.2" leading_cases="true" ignore_sls="false" simultaneous="false">
+            <load_case guid="7ababa22-5d77-405a-ad0d-b3fe63eab325" />
+            <load_case guid="3037308c-dc03-4063-b1bd-c838fe79d95c" />
+          </temporary>
+        </group>
+      </load_group_table>
+    </loads>
+    <supports>
+      <point_support last_change="2023-04-28T17:33:33.000" guid="2a0d42fc-c7ca-4c48-b2ba-ad85f4be7a4a" action="added" name="S.1" stage="1">
+        <group>
+          <local_x x="1" y="0" z="0" />
+          <local_y x="0" y="1" z="0" />
+          <rigidity detach="">
+            <motions x_neg="10000000000" x_pos="10000000000" y_neg="10000000000" y_pos="10000000000" z_neg="10000000000" z_pos="10000000000" />
+            <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
+          </rigidity>
+        </group>
+        <position x="0" y="0" z="0" />
+      </point_support>
+      <point_support last_change="2023-04-28T17:34:22.000" guid="9b5f4f00-46a9-4a04-8675-968eb6f25a2d" action="added" name="S.2" stage="1">
+        <group>
+          <local_x x="1" y="0" z="0" />
+          <local_y x="0" y="1" z="0" />
+          <rigidity detach="">
+            <motions x_neg="10000000000" x_pos="10000000000" y_neg="10000000000" y_pos="10000000000" z_neg="0" z_pos="0" />
+            <rotations x_neg="0" x_pos="0" y_neg="0" y_pos="0" z_neg="0" z_pos="0" />
+          </rigidity>
+        </group>
+        <position x="0" y="0" z="6" />
+      </point_support>
+    </supports>
+    <advanced-fem />
+  </entities>
+  <sections>
+    <section last_change="1970-01-01T00:00:00.000" guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49" action="added" fd_name_code="Steel sections" fd_name_type="HE-A" fd_name_size="100" name="Steel sections, HE-A, 100" type="custom" fd-mat="0">
+      <region_group>
+        <region>
+          <contour>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.05" y="-0.048" z="0" />
+              <point x="0.05" y="-0.048" z="0" />
+              <normal x="0" y="1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.05" y="-0.048" z="0" />
+              <point x="0.05" y="-0.04" z="0" />
+              <normal x="0" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.05" y="-0.04" z="0" />
+              <point x="0.0145" y="-0.04" z="0" />
+              <normal x="0" y="-1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="1.5707963267949" type="arc" radius="0.012">
+              <point x="0.0145" y="-0.028" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <x_axis x="0" y="-1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.0025" y="-0.028" z="0" />
+              <point x="0.0025" y="0.028" z="0" />
+              <normal x="-1" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="1.57079632679489" type="arc" radius="0.012">
+              <point x="0.0145" y="0.028" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <x_axis x="-1" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.0145" y="0.04" z="0" />
+              <point x="0.05" y="0.04" z="0" />
+              <normal x="0" y="1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.05" y="0.04" z="0" />
+              <point x="0.05" y="0.048" z="0" />
+              <normal x="0" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="0.05" y="0.048" z="0" />
+              <point x="-0.05" y="0.048" z="0" />
+              <normal x="0" y="-1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.05" y="0.048" z="0" />
+              <point x="-0.05" y="0.04" z="0" />
+              <normal x="0" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.05" y="0.04" z="0" />
+              <point x="-0.0145" y="0.04" z="0" />
+              <normal x="0" y="1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="1.5707963267949" type="arc" radius="0.012">
+              <point x="-0.0145" y="0.028" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <x_axis x="0" y="1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.0025" y="0.028" z="0" />
+              <point x="-0.0025" y="-0.028" z="0" />
+              <normal x="1" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="1.5707963267949" type="arc" radius="0.012">
+              <point x="-0.0145" y="-0.028" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <x_axis x="1" y="0" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.0145" y="-0.04" z="0" />
+              <point x="-0.05" y="-0.04" z="0" />
+              <normal x="0" y="-1" z="0" />
+            </edge>
+            <edge start_angle="0" end_angle="0" type="line" radius="0">
+              <point x="-0.05" y="-0.04" z="0" />
+              <point x="-0.05" y="-0.048" z="0" />
+              <normal x="0" y="0" z="0" />
+            </edge>
+          </contour>
+        </region>
+      </region_group>
+      <end />
+    </section>
+    <complex_section last_change="1970-01-01T00:00:00.000" guid="1547bd45-ce7b-4a88-a0a2-6c6944a2c3c3" action="added">
+      <section pos="0" guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49">
+        <ecc x="0" y="0" z="0" />
+        <end />
+      </section>
+      <section pos="1" guid="6bd231aa-f0f8-4f40-a212-65f8bbe0ea49">
+        <ecc x="0" y="0" z="0" />
+        <end />
+      </section>
+    </complex_section>
+  </sections>
+  <materials>
+    <material last_change="2023-04-28T17:30:00.000" guid="53eba8f4-7f83-48f1-ad32-75e2773dbdc3" action="added" standard="EC" country="common" name="S 235">
+      <steel mass="7.85" E_0="210000000" E_1="210000000" E_2="210000000" nu_0="0.3" nu_1="0.3" nu_2="0.3" alfa_0="1.2E-05" alfa_1="1.2E-05" alfa_2="1.2E-05" G_0="80769230.7692308" G_1="80769230.7692308" G_2="80769230.7692308" Fyk16="235" Fyk40="235" Fyk63="215" Fyk80="215" Fyk100="215" Fyk150="215" Fyk200="215" Fyk250="215" Fyk400="215" Fuk3="360" Fuk40="360" Fuk100="360" Fuk150="360" Fuk250="360" Fuk400="360" gammaM0_0="1" gammaM0_1="1" gammaM1_0="1" gammaM1_1="1" gammaM2_0="1.25" gammaM2_1="1" gammaM5_0="1" gammaM5_1="1" Ek="210000" Ed_0="210000" Ed_1="210000" nu="0.3" G="80769" alfa="0.000012" />
+    </material>
+  </materials>
+  <end />
+</database>

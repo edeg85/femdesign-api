@@ -75,6 +75,7 @@
     <Compile Include="Deconstruct\ModellingTools\LineConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\OBSOLETE\ModelDeconstruct_OBSOLETE2290.cs" />
+    <Compile Include="Loads\SurfaceLoadVariable.cs" />
     <Compile Include="ModellingTools\CoverOneWay.cs" />
     <Compile Include="ModellingTools\LineConnection.cs" />
     <Compile Include="ModellingTools\Obsolete\CoverOneWayOBSOLETE.cs" />
@@ -363,9 +364,9 @@
     <Compile Include="Loads\OBSOLETE\PointLoadMoment_OBSOLETE.cs" />
     <Compile Include="Loads\PressureLoadDefine.cs" />
     <Compile Include="Loads\SurfaceLoadUniform.cs" />
-    <Compile Include="Loads\SurfaceLoadVariable.cs" />
-    <Compile Include="Loads\SurfaceTemperatureLoadOBSOLETE.cs" />
-    <Compile Include="Loads\TopBotLocationValueConstructOBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\SurfaceLoadVariable_OBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\SurfaceTemperatureLoadOBSOLETE.cs" />
+    <Compile Include="Loads\OBSOLETE\TopBotLocationValueConstructOBSOLETE.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseDefault_OBSOLETE2.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseFromStruxml_OBSOLETE2.cs" />
     <Compile Include="Materials\OBSOLETE\MaterialDatabaseListMaterialNamesOBSOLETE.cs" />
